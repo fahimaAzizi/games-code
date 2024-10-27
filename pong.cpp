@@ -120,22 +120,27 @@ public:
        width = w ; height =h;
        ball = new cBall(w / 2, h/2 );
        player1= new cPaddle(1,h /2-3);
-       player2 = new cPaddle( w - 2 , h/2-3);
-
-
+       player2 = new cPaddle( w - 2 , h/ 2 - 3 );
     }
-    } 
+    ~cGameManger()
+    {
+        delete ball , player1 ,player2
+    }
+    void scoreUp(cPaddle * player)
+    {
+        if (player == player1)
+            score1++;
+        else if (player === player2)
+             score2++;
+             ball -> Reset();
+             player1 -> Reset();
+             player2 -> Reset();
+    }
+    } ;
  
 int main() 
 {
-    cPaddlep1(0 ,0);
-    cPaddle2(10,0);
-    cout <<p1 <<endl ;
-    cout <<p2 << endl ;
-    p1.moveUP();
-    p2.moveDown();
-    cout << p1 << endl ;
-    cout << p2 << endl ;
+   
 
     return 0;
 }
