@@ -1,4 +1,6 @@
 #include <iostream>
+#include <time.h>
+#include<conio.h>
 using namespace std;
 
 enum eDir { STOP = 0, LEFT = 1, UPLEFT = 2, DOWNLEFT = 3, RIGHT = 4, UPRIGHT = 5, DOWNRIGHT = 6 };
@@ -93,11 +95,47 @@ public:
      inline void MoveDown() {y++;}
      friend ostream & operator << (ostream & o, cPaddle c)
      {
-        
+        o << "paddle [" << c.x << "," << c.y <<"]";
+        return o ;
      }
  };
-int main() {
-   
+    class cGameManger 
+    {
+    private:
+    int width ,height;
+    int score1 , score2;
+    char up1 , down1 , up2 , down2:
+    bool quit;
+    cBall* ball;
+    cPaddle* player1;
+    cPaddle * player2;
+    public:
+     cGameManger(int w ,int h)
+    {
+       srend(time(NULL));
+       quit = false;
+       up1= 'w' ; up2 = 'i';
+       down1= 's'; down2 = 'k';
+       score1 = score2 = 0;
+       width = w ; height =h;
+       ball = new cBall(w / 2, h/2 );
+       player1= new cPaddle(1,h /2-3);
+       player2 = new cPaddle( w - 2 , h/2-3);
+
+
+    }
+    } 
+ 
+int main() 
+{
+    cPaddlep1(0 ,0);
+    cPaddle2(10,0);
+    cout <<p1 <<endl ;
+    cout <<p2 << endl ;
+    p1.moveUP();
+    p2.moveDown();
+    cout << p1 << endl ;
+    cout << p2 << endl ;
 
     return 0;
 }
