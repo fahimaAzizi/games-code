@@ -136,11 +136,51 @@ public:
              player1 -> Reset();
              player2 -> Reset();
     }
+    void Draw(){
+        system("clear");
+        for(int i=0; i <width +2 ; i++)
+          cout <<"\xB2";
+          cout <<endl ;
+          for (int i = 0; i < height+ 2; i++)
+          {
+           for (int j = 0; j < width; j++)
+           {
+            int ballx = ball ->getX();
+            int bally = ball -> getY();
+            int player1x =player1 -> getX();
+            int player2x = player2-> getX();
+            int player1y = player1-> getY();
+            int player2y = player2 ->getY();
+            if (j == 0)
+               cout<<"\xB2";
+            if (ballx == j && bally == i)
+              cout << "o";
+            else if (player1x == j && player1y == i)
+                cout << "\xDB";
+              else if (player2x == j && player2y == i)
+                cout << "\xDB";
+            else
+               cout <<" ";
+
+            if (j == width - 1 )
+            
+               cout << "\xB2";
+
+
+
+           }
+           
+          }
+          
+          for(int i=0; i <width +2 ; i++)
+          cout <<"#";
+    }
     } ;
  
 int main() 
 {
-   
+   cGameManger c(40,20);
+   c.Draw()
 
     return 0;
 }
