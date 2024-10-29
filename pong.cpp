@@ -175,7 +175,58 @@ public:
 }
 
 
+    void Input() {
+        if (_kbhit()) {
+            char current = _getch();
+            if (current == up1 && player1->getY() > 0)
+                player1->MoveUp();
+            if (current == down1 && player1->getY() + 4 < height)
+                player1->MoveDown();
+            if (current == up2 && player2->getY() > 0)
+                player2->MoveUp();
+            if (current == down2 && player2->getY() + 4 < height)
+                player2->MoveDown();
 
+            if (ball->getDirection() == STOP)
+                ball->randomDirection();
+
+            if (current == 'q')
+                quit = true;
+        }
+    }
+
+    void Logic() {
+    int ballx = ball->getX();
+    int bally = ball->getY();
+    int player1x = player1->getX();
+    int player2x = player2->getX();
+    int player1y = player1->getY();
+    int player2y = player2->getY();
+
+    // Ball collision with paddles
+    for (int i = 0; i < 4; i++) {
+        if (ballx == player1x + 1 && bally == player1y + i) {
+            ball->changeDirection((eDir)((rand() % 3) + 4));
+            ballColor = colors[rand() % 6]; // Change to a random color
+        }
+        if (ballx == player2x - 1 && bally == player2y + i) {
+            ball->changeDirection((eDir)((rand() % 3) + 1));
+            ballColor = colors[rand() % 6]; // Change to a random color
+        }
+    }
+
+    // Ball collision with top and bottom walls
+    if (bally == 0 || bally == height - 1) {
+        ball->changeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
+        ballColor = colors[rand() % 6]; // Change to a random color
+    }
+
+    // Ball passes paddles (score)
+    if (ballx == width - 1) scoreUp(player1);
+    if (ballx == 0) scoreUp(player2);
+
+    ball->Move();
+}
 
      
 
