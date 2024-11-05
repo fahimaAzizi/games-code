@@ -57,7 +57,6 @@ public:
 
     void moveRightArm() {
         rightArm.move(0, -20); // Move the right arm up
-        // Reset it back down after a delay (simple reset logic)
         if (rightArm.getPosition().y < 130) {
             rightArm.move(0, 20); // Move it back down
         }
@@ -120,6 +119,8 @@ public:
     }
 };
 
+// Scene class definition for the background
+class Scene {
 public:
     std::string backgroundImage;
 
@@ -128,7 +129,9 @@ public:
     void render() const {
         std::cout << "Rendering background: " << backgroundImage << std::endl;
     }
-}// Function to handle player input
+};
+
+// Function to handle player input
 void handleInput(char key, Character& currentCharacter, Character& opponent) {
     if (key == 'p') {
         currentCharacter.punch(opponent);
@@ -143,7 +146,7 @@ void gameLoop(Team& team1, Team& team2, Scene& scene, Timer& timer) {
 
     // SFML Setup
     sf::RenderWindow window(sf::VideoMode(800, 600), "Fighting Game");
-    
+
     while (!gameOver && timer.duration > 0) {
         scene.render();
         timer.tick();
@@ -175,6 +178,8 @@ void gameLoop(Team& team1, Team& team2, Scene& scene, Timer& timer) {
 
         // Handle player input for team 1's current character
         handleInput(playerInput, *team1.currentCharacter, *team2.currentCharacter);
+
+        // Check for victory conditions
         if (team1.currentCharacter->health <= 0) {
             std::cout << team2.currentCharacter->name << " wins!" << std::endl;
             gameOver = true;
@@ -190,3 +195,22 @@ void gameLoop(Team& team1, Team& team2, Scene& scene, Timer& timer) {
     window.close();
 }
 
+// Main function to initialize game setup
+int main() {
+    // Create characters
+    Character character1("Fighter1", 100, 10);
+    Character character2("Fighter2", 100, 10);
+
+    // Initialize teams
+    Team team1({ character1 });
+    Team team2({ character2 });
+
+    // Create a scene and timer
+    Scene scene("background.jpg");
+    Timer timer(30);
+
+    // Start the game loop
+    gameLoop(team1, team2, scene, timer);
+
+    return 0;
+}
